@@ -37,8 +37,9 @@ def execute_command(cmd: str = ''):
 		and args[5] == '--bbox-dist-mts'
 		and args[6].replace('.', '', 1).isdigit()
 	):
-		if len(args) == 8:
-			simplify = True if args[7] == '--simplify' else False
+		simplify = False
+		if len(args) == 8 and args[7] == '--simplify':
+			simplify = True
 		try:
 			graph = osmnx.graph_from_point((float(args[2]), float(args[4])), dist=float(args[6]), simplify=simplify)
 		except networkx.exception.NetworkXPointlessConcept:
